@@ -50,14 +50,28 @@ All colors MUST be HSL.
     /* Extended design tokens */
     --primary-strong: 224.3 76.3% 48%;
     --primary-soft: 222.2 84% 56%;
+    --accent-glow: 224.3 76.3% 58%;
+    --success: 142.1 76.2% 36.3%;
+    --warning: 47.9 95.8% 53.1%;
+    
+    /* Advanced gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary-strong) / 0.95), hsl(var(--primary) / 0.9));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary-strong)), hsl(var(--accent-glow)));
     --gradient-subtle: radial-gradient(600px 300px at var(--pointer-x, 50%) var(--pointer-y, 30%), hsl(var(--primary-strong) / 0.15), transparent 60%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card) / 0.8), hsl(var(--card) / 0.95));
+    --gradient-glass: linear-gradient(145deg, hsl(var(--background) / 0.1), hsl(var(--background) / 0.05));
 
-    /* Shadows */
+    /* Enhanced shadows */
     --shadow-elegant: 0 12px 28px -12px hsl(var(--primary) / 0.25);
     --shadow-elegant-strong: 0 18px 44px -16px hsl(var(--primary) / 0.32);
     --shadow-glow: 0 0 24px hsl(var(--primary-strong) / 0.25);
     --shadow-glow-strong: 0 0 36px hsl(var(--primary-strong) / 0.35);
+    --shadow-card: 0 4px 6px -1px hsl(var(--foreground) / 0.1), 0 2px 4px -1px hsl(var(--foreground) / 0.06);
+    --shadow-card-hover: 0 10px 15px -3px hsl(var(--foreground) / 0.1), 0 4px 6px -2px hsl(var(--foreground) / 0.05);
+    
+    /* Animations */
+    --transition-all: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-colors: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
   }
 
   .dark {
@@ -107,6 +121,8 @@ All colors MUST be HSL.
     --shadow-elegant-strong: 0 18px 44px -16px hsl(var(--primary) / 0.45);
     --shadow-glow: 0 0 28px hsl(var(--primary-strong) / 0.35);
     --shadow-glow-strong: 0 0 44px hsl(var(--primary-strong) / 0.5);
+    --shadow-card: 0 4px 6px -1px hsl(var(--foreground) / 0.1), 0 2px 4px -1px hsl(var(--foreground) / 0.06);
+    --shadow-card-hover: 0 10px 15px -3px hsl(var(--foreground) / 0.1), 0 4px 6px -2px hsl(var(--foreground) / 0.05);
   }
 }
 
@@ -125,6 +141,15 @@ All colors MUST be HSL.
   .bg-gradient-primary {
     background-image: var(--gradient-primary);
   }
+  .bg-gradient-hero {
+    background-image: var(--gradient-hero);
+  }
+  .bg-gradient-card {
+    background-image: var(--gradient-card);
+  }
+  .bg-gradient-glass {
+    background-image: var(--gradient-glass);
+  }
   .shadow-elegant {
     box-shadow: var(--shadow-elegant);
   }
@@ -137,6 +162,24 @@ All colors MUST be HSL.
   .shadow-glow-strong {
     box-shadow: var(--shadow-glow-strong);
   }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  .transition-all {
+    transition: var(--transition-all);
+  }
+  .transition-colors {
+    transition: var(--transition-colors);
+  }
+  .text-gradient {
+    background: var(--gradient-hero);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 @layer components {
@@ -147,5 +190,21 @@ All colors MUST be HSL.
     background: var(--gradient-subtle);
     transition: background 150ms ease-out;
     will-change: background;
+  }
+  
+  .card-premium {
+    @apply bg-gradient-card shadow-card hover:shadow-card-hover transition-all border-0 backdrop-blur-sm;
+  }
+  
+  .section-padding {
+    @apply py-20 lg:py-28;
+  }
+  
+  .container-narrow {
+    @apply container mx-auto max-w-4xl;
+  }
+  
+  .glass-effect {
+    @apply bg-gradient-glass backdrop-blur-md border border-border/50;
   }
 }

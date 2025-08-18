@@ -25,46 +25,71 @@ const Index = () => {
       <SiteHeader />
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden">
-          <div className="container mx-auto pt-20 pb-28 text-center relative">
+        <section className="relative overflow-hidden min-h-screen flex items-center">
+          <div className="container mx-auto pt-20 pb-28 text-center relative z-10">
             <HeroBackground />
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              Smarter, Faster, More Sustainable Development
-            </h1>
-            <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              We bridge the gap between public ambition and private innovation — turning bold ideas into real-world impact across development, gender, climate, trade, health and tech.
-            </p>
-            <div className="mt-8 flex items-center justify-center gap-3">
-              <Button asChild variant="hero" size="lg">
-                <Link to="/contact">Work With Us</Link>
-              </Button>
-              <Button asChild variant="elevated" size="lg">
-                <Link to="/projects">Explore Our Portfolio</Link>
-              </Button>
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-tight">
+                <span className="text-gradient">Smarter</span>, <span className="text-gradient">Faster</span>,<br />
+                More <span className="text-gradient">Sustainable</span><br />
+                Development
+              </h1>
+              <p className="mt-8 text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+                We bridge the gap between public ambition and private innovation — turning bold ideas into real-world impact across development, gender, climate, trade, health and tech.
+              </p>
+              <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button asChild variant="hero" size="lg" className="w-full sm:w-auto text-lg px-8 py-4">
+                  <Link to="/contact">Work With Us</Link>
+                </Button>
+                <Button asChild variant="elevated" size="lg" className="w-full sm:w-auto text-lg px-8 py-4">
+                  <Link to="/projects">Explore Our Portfolio</Link>
+                </Button>
+              </div>
             </div>
           </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background pointer-events-none"></div>
         </section>
 
         {/* What We Do */}
-        <section className="py-16 border-t">
-          <div className="container mx-auto">
-            <h2 className="text-3xl font-semibold tracking-tight">
-              Making Development Work — for People, Planet, and Progress
+        <section className="section-padding border-t">
+          <div className="container-narrow text-center">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Making Development Work — for <span className="text-gradient">People</span>, <span className="text-gradient">Planet</span>, and <span className="text-gradient">Progress</span>
             </h2>
-            <p className="mt-3 text-muted-foreground max-w-3xl">
+            <p className="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               IDEA (International Development & Economic Advisory) is a lean, expert-driven consultancy that helps governments, donors, and private partners deliver measurable impact. We work hands-on and across sectors to craft innovative, inclusive, and locally grounded solutions.
             </p>
-            <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               {[
-                "Strategic & Program Advisory",
-                "Humanitarian, Health & Gender Programming",
-                "Economic Development & Trade",
-                "Innovation, AI & Digital Tools",
+                {
+                  title: "Strategic & Program Advisory",
+                  icon: "🎯",
+                  desc: "Strategic guidance for maximum impact"
+                },
+                {
+                  title: "Humanitarian, Health & Gender Programming",
+                  icon: "❤️",
+                  desc: "Human-centered solutions in complex environments"
+                },
+                {
+                  title: "Economic Development & Trade",
+                  icon: "📈",
+                  desc: "Sustainable economic growth and partnerships"
+                },
+                {
+                  title: "Innovation, AI & Digital Tools",
+                  icon: "🚀",
+                  desc: "Technology for inclusive development"
+                },
               ].map((s) => (
-                <Card key={s} className="h-full">
-                  <CardHeader>
-                    <CardTitle className="text-base">{s}</CardTitle>
+                <Card key={s.title} className="card-premium h-full group cursor-pointer">
+                  <CardHeader className="text-center pb-4">
+                    <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">{s.icon}</div>
+                    <CardTitle className="text-lg leading-tight">{s.title}</CardTitle>
                   </CardHeader>
+                  <CardContent className="text-center">
+                    <p className="text-sm text-muted-foreground">{s.desc}</p>
+                  </CardContent>
                 </Card>
               ))}
             </div>
@@ -102,33 +127,31 @@ const Index = () => {
         </section>
 
         {/* Global Work */}
-        <section className="py-16 border-t">
-          <div className="container mx-auto">
-            <h2 className="text-3xl font-semibold tracking-tight">Global Reach. Local Insight.</h2>
-            <p className="mt-3 text-muted-foreground max-w-3xl">
+        <section className="section-padding border-t">
+          <div className="container-narrow text-center">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Global <span className="text-gradient">Reach</span>. Local <span className="text-gradient">Insight</span>.</h2>
+            <p className="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               With experience across Europe, Africa, and the Americas, IDEA delivers context-specific solutions with a global lens. From EU institutions to field partners in Sudan and Kenya — we adapt to realities on the ground.
             </p>
-            <div className="mt-8">
-              <Carousel>
-                <CarouselContent>
-                  {[
-                    { region: "Europe", detail: "EU institutions and partners" },
-                    { region: "Africa", detail: "Sudan, Kenya and beyond" },
-                    { region: "Americas", detail: "Dominican Republic, Haiti" },
-                  ].map((r) => (
-                    <CarouselItem key={r.region} className="md:basis-1/2 lg:basis-1/3">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="text-lg">{r.region}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-sm text-muted-foreground">{r.detail}</p>
-                        </CardContent>
-                      </Card>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel>
+            <div className="mt-16">
+              <div className="grid gap-8 md:grid-cols-3">
+                {[
+                  { region: "Europe", detail: "EU institutions and partners", flag: "🇪🇺", countries: "Germany • Luxembourg • Belgium • Switzerland" },
+                  { region: "Africa", detail: "Sudan, Kenya and beyond", flag: "🌍", countries: "Sudan • Kenya • Regional Partners" },
+                  { region: "Americas", detail: "Dominican Republic, Haiti", flag: "🌎", countries: "Dominican Republic • Haiti • United States" },
+                ].map((r) => (
+                  <Card key={r.region} className="card-premium group hover:scale-[1.02] transition-all duration-300">
+                    <CardHeader className="text-center">
+                      <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">{r.flag}</div>
+                      <CardTitle className="text-2xl text-gradient">{r.region}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-center space-y-3">
+                      <p className="text-muted-foreground">{r.detail}</p>
+                      <p className="text-sm text-muted-foreground/80 leading-relaxed">{r.countries}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         </section>
