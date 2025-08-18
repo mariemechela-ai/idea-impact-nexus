@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDEA – Smarter, Faster, More Sustainable Development</title>
+    <meta name="description" content="We bridge public ambition and private innovation to deliver impact across development, gender, climate, trade, health and tech.">
+    <meta name="author" content="IDEA">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://idea-impact.com/">
+    <meta property="og:title" content="IDEA – Smarter, Faster, More Sustainable Development">
+    <meta property="og:description" content="We bridge public ambition and private innovation to deliver impact across development, gender, climate, trade, health and tech.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://idea-impact.com/">
+    <meta property="twitter:title" content="IDEA – Smarter, Faster, More Sustainable Development">
+    <meta property="twitter:description" content="We bridge public ambition and private innovation to deliver impact across development, gender, climate, trade, health and tech.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "International Development & Economic Advisory (IDEA)",
+      "url": "https://idea-impact.com",
+      "sameAs": ["https://www.linkedin.com"]
+    }
+    </script>
+    
+    <style>
+        /* Design System & Base Styles */
+        :root {
+            /* HSL Color System */
+            --background: 222 84% 5%;
+            --foreground: 210 40% 98%;
+            --card: 222 84% 5%;
+            --card-foreground: 210 40% 98%;
+            --popover: 222 84% 5%;
+            --popover-foreground: 210 40% 98%;
+            --primary: 262 83% 58%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 217 33% 17%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217 33% 17%;
+            --muted-foreground: 215 20% 65%;
+            --accent: 217 33% 17%;
+            --accent-foreground: 210 40% 98%;
+            --destructive: 0 84% 60%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 217 33% 17%;
+            --input: 217 33% 17%;
+            --ring: 262 83% 58%;
+            --radius: 0.75rem;
+            
+            /* Premium Design Tokens */
+            --primary-glow: 262 83% 70%;
+            --secondary-glow: 217 33% 25%;
+            --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(262 83% 70%));
+            --gradient-hero: linear-gradient(135deg, hsl(262 83% 58%), hsl(217 33% 17%));
+            --gradient-subtle: linear-gradient(180deg, hsl(222 84% 5%), hsl(217 33% 8%));
+            --shadow-elegant: 0 10px 30px -10px hsl(262 83% 58% / 0.3);
+            --shadow-glow: 0 0 40px hsl(262 83% 70% / 0.4);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        .text-gradient {
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradient-shift 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Layout Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .section-padding {
+            padding: 5rem 0;
+        }
+        
+        /* Animation Classes */
+        .animate-in {
+            animation: slideInFromBottom 1s ease-out;
+        }
+        
+        @keyframes slideInFromBottom {
+            0% {
+                opacity: 0;
+                transform: translateY(2rem);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-hero {
+            background: var(--gradient-hero);
+            color: hsl(var(--primary-foreground));
+            box-shadow: var(--shadow-elegant);
+            border: 1px solid hsl(var(--primary) / 0.2);
+        }
+        
+        .btn-hero:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .btn-elevated {
+            background: hsl(var(--card));
+            color: hsl(var(--card-foreground));
+            border: 1px solid hsl(var(--border));
+            box-shadow: 0 4px 12px hsl(var(--background) / 0.4);
+        }
+        
+        .btn-elevated:hover {
+            background: hsl(var(--accent));
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px hsl(var(--background) / 0.6);
+        }
+        
+        .btn-secondary {
+            background: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+            border: 1px solid hsl(var(--border));
+        }
+        
+        .btn-secondary:hover {
+            background: hsl(var(--secondary-glow));
+        }
+        
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+        
+        /* Card Styles */
+        .card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: var(--transition-smooth);
+        }
+        
+        .card-premium {
+            background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--muted)));
+            border: 1px solid hsl(var(--border) / 0.5);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-primary);
+            opacity: 0.6;
+        }
+        
+        .card-premium:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-elegant);
+            border-color: hsl(var(--primary) / 0.3);
+        }
+        
+        /* Hero Background */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-subtle);
+            opacity: 0.8;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 50%, hsl(262 83% 58% / 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, hsl(217 33% 17% / 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, hsl(262 83% 70% / 0.2) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: hsl(var(--background) / 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid hsl(var(--border));
+        }
+        
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: hsl(var(--muted-foreground));
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: hsl(var(--primary));
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: hsl(var(--foreground));
+            text-decoration: none;
+        }
+        
+        /* Footer */
+        .footer {
+            background: hsl(var(--muted));
+            border-top: 1px solid hsl(var(--border));
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: hsl(var(--foreground));
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: hsl(var(--muted-foreground));
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: hsl(var(--primary));
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid hsl(var(--border));
+            color: hsl(var(--muted-foreground));
+        }
+        
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .section-padding {
+                padding: 3rem 0;
+            }
+            
+            .hero-title {
+                font-size: 3rem !important;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+        
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-5xl { font-size: 3rem; }
+        .text-7xl { font-size: 4.5rem; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .leading-tight { line-height: 1.25; }
+        .leading-relaxed { line-height: 1.625; }
+        .tracking-tight { letter-spacing: -0.025em; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mt-12 { margin-top: 3rem; }
+        .mt-16 { margin-top: 4rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-10 { margin-bottom: 2.5rem; }
+        .max-w-2xl { max-width: 42rem; }
+        .max-w-3xl { max-width: 48rem; }
+        .max-w-4xl { max-width: 56rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+        .space-y-3 > * + * { margin-top: 0.75rem; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .min-h-screen { min-height: 100vh; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .z-10 { z-index: 10; }
+        .overflow-hidden { overflow: hidden; }
+        .border-t { border-top: 1px solid hsl(var(--border)); }
+        .bg-muted { background: hsl(var(--muted) / 0.3); }
+        .text-muted-foreground { color: hsl(var(--muted-foreground)); }
+        .text-primary { color: hsl(var(--primary)); }
+        .rounded-full { border-radius: 9999px; }
+        .w-12 { width: 3rem; }
+        .h-12 { height: 3rem; }
+        .text-xl-emoji { font-size: 1.25rem; }
+        .flex-shrink-0 { flex-shrink: 0; }
+        .mt-1 { margin-top: 0.25rem; }
+        .pt-20 { padding-top: 5rem; }
+        .pb-28 { padding-bottom: 7rem; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="#" class="logo">IDEA</a>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link">About</a></li>
+                <li><a href="#" class="nav-link">Services</a></li>
+                <li><a href="#" class="nav-link">Projects</a></li>
+                <li><a href="#" class="nav-link">Insights</a></li>
+                <li><a href="#" class="nav-link">Team</a></li>
+                <li><a href="#" class="nav-link">Contact</a></li>
+                <li><a href="#" class="nav-link">Careers</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden min-h-screen flex items-center">
+            <div class="hero-bg"></div>
+            <div class="container mx-auto pt-20 pb-28 text-center relative z-10">
+                <div class="animate-in">
+                    <h1 class="hero-title text-5xl text-7xl font-bold tracking-tight leading-tight">
+                        <span class="text-gradient">Smarter</span>, <span class="text-gradient">Faster</span>,<br />
+                        More <span class="text-gradient">Sustainable</span><br />
+                        Development
+                    </h1>
+                    <p class="mt-8 text-xl text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+                        We bridge the gap between public ambition and private innovation — turning bold ideas into real-world impact across development, gender, climate, trade, health and tech.
+                    </p>
+                    <div class="mt-12 flex flex-col gap-4">
+                        <a href="#contact" class="btn btn-hero btn-lg">Work With Us</a>
+                        <a href="#projects" class="btn btn-elevated btn-lg">Explore Our Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What We Do -->
+        <section class="section-padding border-t">
+            <div class="container-narrow text-center">
+                <h2 class="text-4xl text-5xl font-bold tracking-tight">
+                    Making Development Work — for <span class="text-gradient">People</span>, <span class="text-gradient">Planet</span>, and <span class="text-gradient">Progress</span>
+                </h2>
+                <p class="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                    IDEA (International Development & Economic Advisory) is a lean, expert-driven consultancy that helps governments, donors, and private partners deliver measurable impact. We work hands-on and across sectors to craft innovative, inclusive, and locally grounded solutions.
+                </p>
+                <div class="mt-16 grid grid-4">
+                    <div class="card-premium h-full group">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🎯</div>
+                            <h3 class="text-xl font-semibold mb-4">Strategic & Program Advisory</h3>
+                            <p class="text-muted-foreground">Strategic guidance for maximum impact</p>
+                        </div>
+                    </div>
+                    <div class="card-premium h-full group">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">❤️</div>
+                            <h3 class="text-xl font-semibold mb-4">Humanitarian, Health & Gender Programming</h3>
+                            <p class="text-muted-foreground">Human-centered solutions in complex environments</p>
+                        </div>
+                    </div>
+                    <div class="card-premium h-full group">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">📈</div>
+                            <h3 class="text-xl font-semibold mb-4">Economic Development & Trade</h3>
+                            <p class="text-muted-foreground">Sustainable economic growth and partnerships</p>
+                        </div>
+                    </div>
+                    <div class="card-premium h-full group">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🚀</div>
+                            <h3 class="text-xl font-semibold mb-4">Innovation, AI & Digital Tools</h3>
+                            <p class="text-muted-foreground">Technology for inclusive development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Edge -->
+        <section class="section-padding border-t">
+            <div class="container">
+                <h2 class="text-3xl font-semibold tracking-tight">What Sets Us Apart</h2>
+                <p class="mt-6 text-muted-foreground max-w-3xl">
+                    We're not your typical consultancy. IDEA was founded to make development faster, smarter, and more impactful — without the overheads, silos, and slow processes that hold so many actors back.
+                </p>
+                <div class="mt-8 grid grid-4">
+                    <div class="card h-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="text-primary">⚡</div>
+                            <h3 class="font-semibold">Lean & Agile</h3>
+                        </div>
+                        <p class="text-muted-foreground">We cut through bureaucracy and deliver high-quality, cost-efficient solutions.</p>
+                    </div>
+                    <div class="card h-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="text-primary">🔗</div>
+                            <h3 class="font-semibold">Public–Private Linkages</h3>
+                        </div>
+                        <p class="text-muted-foreground">We connect governments, funders, and innovators to scale what works.</p>
+                    </div>
+                    <div class="card h-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="text-primary">📍</div>
+                            <h3 class="font-semibold">Hands-On Fieldwork</h3>
+                        </div>
+                        <p class="text-muted-foreground">We go where others won't. From conflict zones to startup hubs.</p>
+                    </div>
+                    <div class="card h-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="text-primary">🤝</div>
+                            <h3 class="font-semibold">Aligned Incentives</h3>
+                        </div>
+                        <p class="text-muted-foreground">We work toward shared outcomes, not just outputs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Work -->
+        <section class="section-padding border-t">
+            <div class="container-narrow text-center">
+                <h2 class="text-4xl text-5xl font-bold tracking-tight">Global <span class="text-gradient">Reach</span>. Local <span class="text-gradient">Insight</span>.</h2>
+                <p class="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                    With experience across Europe, Africa, and the Americas, IDEA delivers context-specific solutions with a global lens. From EU institutions to field partners in Sudan and Kenya — we adapt to realities on the ground.
+                </p>
+                <div class="mt-16 grid grid-3">
+                    <div class="card-premium group">
+                        <div class="text-center">
+                            <div class="text-5xl mb-4">🇪🇺</div>
+                            <h3 class="text-2xl text-gradient mb-4">Europe</h3>
+                            <p class="text-muted-foreground mb-3">EU institutions and partners</p>
+                            <p class="text-muted-foreground/80 leading-relaxed">Germany • Luxembourg • Belgium • Switzerland</p>
+                        </div>
+                    </div>
+                    <div class="card-premium group">
+                        <div class="text-center">
+                            <div class="text-5xl mb-4">🌍</div>
+                            <h3 class="text-2xl text-gradient mb-4">Africa</h3>
+                            <p class="text-muted-foreground mb-3">Sudan, Kenya and beyond</p>
+                            <p class="text-muted-foreground/80 leading-relaxed">Sudan • Kenya • Regional Partners</p>
+                        </div>
+                    </div>
+                    <div class="card-premium group">
+                        <div class="text-center">
+                            <div class="text-5xl mb-4">🌎</div>
+                            <h3 class="text-2xl text-gradient mb-4">Americas</h3>
+                            <p class="text-muted-foreground mb-3">Dominican Republic, Haiti</p>
+                            <p class="text-muted-foreground/80 leading-relaxed">Dominican Republic • Haiti • United States</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects -->
+        <section class="section-padding border-t">
+            <div class="container">
+                <h2 class="text-3xl font-semibold tracking-tight">From Vision to Implementation</h2>
+                <div class="mt-8 grid grid-3">
+                    <div class="card h-full">
+                        <h3 class="text-xl font-semibold mb-4">Global Gateway, Dominican Republic</h3>
+                        <p class="text-muted-foreground mb-4">€300M+ in investment strategies unlocked through private sector engagement and trade facilitation.</p>
+                        <p class="text-xs text-muted-foreground">Client: EU Commission</p>
+                    </div>
+                    <div class="card h-full">
+                        <h3 class="text-xl font-semibold mb-4">Lolgy Ltd., Kenya</h3>
+                        <p class="text-muted-foreground mb-4">Sustainable mining meets women's health — piloting a cross-sector solution rooted in community.</p>
+                        <p class="text-xs text-muted-foreground">Focus: Health & Gender Innovation</p>
+                    </div>
+                    <div class="card h-full">
+                        <h3 class="text-xl font-semibold mb-4">Apicultural Biomonitoring, DR</h3>
+                        <p class="text-muted-foreground mb-4">Citizen science for clean air — communications and stakeholder engagement.</p>
+                        <p class="text-xs text-muted-foreground">With WHO & EU Delegation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights CTA -->
+        <section class="section-padding border-t">
+            <div class="container text-center">
+                <h2 class="text-3xl font-semibold tracking-tight">
+                    Ideas that Travel. Insights that Matter.
+                </h2>
+                <p class="mt-6 text-muted-foreground max-w-2xl mx-auto">
+                    From digital health to financing for development — we share what we learn.
+                </p>
+                <div class="mt-6">
+                    <a href="#insights" class="btn btn-hero">Visit Our Insights</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="section-padding border-t">
+            <div class="container text-center">
+                <h2 class="text-3xl font-semibold tracking-tight">Let's Build Something That Lasts</h2>
+                <p class="mt-6 text-muted-foreground max-w-2xl mx-auto">
+                    Ready to shape inclusive, future-ready solutions? Whether you're a funder, implementer, or innovator — IDEA is here to help turn your mission into measurable outcomes.
+                </p>
+                <div class="mt-8 flex flex-col gap-3">
+                    <a href="#contact" class="btn btn-hero btn-lg">Contact Us</a>
+                    <a href="#careers" class="btn btn-elevated btn-lg">Send us your CV</a>
+                    <a href="#services" class="btn btn-secondary btn-lg">See Our Services</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IDEA</h3>
+                    <p class="text-muted-foreground">International Development & Economic Advisory</p>
+                    <p class="text-muted-foreground mt-4">Making development smarter, faster, and more sustainable.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">Strategic Advisory</a></li>
+                        <li><a href="#services">Economic Development</a></li>
+                        <li><a href="#services">Humanitarian Programming</a></li>
+                        <li><a href="#services">Digital Innovation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#insights">Insights</a></li>
+                        <li><a href="#case-studies">Case Studies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 International Development & Economic Advisory (IDEA). All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
