@@ -156,58 +156,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Featured Projects */}
-        <section className="py-16 border-t">
-          <div className="container mx-auto">
-            <h2 className="text-3xl font-semibold tracking-tight">From Vision to Implementation</h2>
-            <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  title: "Global Gateway, Dominican Republic",
-                  text: "€300M+ in investment strategies unlocked through private sector engagement and trade facilitation.",
-                  meta: "Client: EU Commission",
-                },
-                {
-                  title: "Lolgy Ltd., Kenya",
-                  text: "Sustainable mining meets women’s health — piloting a cross-sector solution rooted in community.",
-                  meta: "Focus: Health & Gender Innovation",
-                },
-                {
-                  title: "Apicultural Biomonitoring, DR",
-                  text: "Citizen science for clean air — communications and stakeholder engagement.",
-                  meta: "With WHO & EU Delegation",
-                },
-              ].map((p) => (
-                <Card key={p.title} className="h-full">
-                  <CardHeader>
-                    <CardTitle className="text-lg">{p.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">{p.text}</p>
-                    <p className="mt-3 text-xs text-muted-foreground">{p.meta}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {/* Insights CTA */}
-        <section className="py-16 border-t">
-          <div className="container mx-auto text-center">
-            <h2 className="text-3xl font-semibold tracking-tight">
-              Ideas that Travel. Insights that Matter.
-            </h2>
-            <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
-              From digital health to financing for development — we share what we learn.
-            </p>
-            <div className="mt-6">
-              <Button asChild variant="hero">
-                <Link to="/insights">Visit Our Insights</Link>
-              </Button>
-            </div>
-          </div>
-        </section>
 
         {/* Final CTA */}
         <section className="py-20 border-t">
