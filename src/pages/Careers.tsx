@@ -28,6 +28,10 @@ const Careers = () => {
     let cvFilePath = null;
     
     try {
+      if (!supabase) {
+        throw new Error('Supabase not configured. Please ensure your Supabase integration is connected.');
+      }
+
       // Handle CV upload if file is provided
       const cvFile = formData.get('cv') as File;
       if (cvFile && cvFile.size > 0) {

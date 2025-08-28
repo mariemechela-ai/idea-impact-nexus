@@ -22,6 +22,10 @@ const Admin = () => {
     try {
       setLoading(true);
       
+      if (!supabase) {
+        throw new Error('Supabase not configured. Please ensure your Supabase integration is connected.');
+      }
+      
       // Fetch contact submissions
       const { data: contacts, error: contactsError } = await supabase
         .from('contact_submissions')
@@ -49,6 +53,11 @@ const Admin = () => {
 
   const downloadCV = async (filePath: string, fileName: string) => {
     try {
+      if (!supabase) {
+        throw new Error('Supabase not configured.');
+        return;
+      }
+      
       const { data, error } = await supabase.storage
         .from('cvs')
         .download(filePath);

@@ -24,6 +24,10 @@ const Contact = () => {
     };
 
     try {
+      if (!supabase) {
+        throw new Error('Supabase not configured. Please ensure your Supabase integration is connected.');
+      }
+
       const { error } = await supabase
         .from('contact_submissions')
         .insert([data]);
