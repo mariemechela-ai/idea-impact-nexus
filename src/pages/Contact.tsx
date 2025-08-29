@@ -32,9 +32,12 @@ const Contact = () => {
       }
 
       console.log('Attempting to insert data into contact_submissions table');
-      const { error } = await supabase
+      const { data: result, error } = await supabase
         .from('contact_submissions')
-        .insert([data]);
+        .insert([data])
+        .select();
+
+      console.log('Supabase response:', { result, error });
 
       if (error) {
         console.error('Supabase insert error:', error);
@@ -48,7 +51,7 @@ const Contact = () => {
       console.error('Error submitting form:', error);
       toast({ 
         title: "Error", 
-        description: "Failed to submit form. Please try again.",
+        description: `Failed to submit form: ${error instanceof Error ? error.message : 'Unknown error'}`,
         variant: "destructive" 
       });
     } finally {
