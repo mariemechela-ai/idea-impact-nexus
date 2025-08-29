@@ -14,6 +14,7 @@ const Contact = () => {
 
   const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    console.log('Form submission started');
     setIsSubmitting(true);
     
     const formData = new FormData(e.currentTarget);
@@ -22,18 +23,25 @@ const Contact = () => {
       email: formData.get('email') as string,
       message: formData.get('message') as string,
     };
+    console.log('Form data:', data);
 
     try {
+      console.log('Supabase client:', supabase);
       if (!supabase) {
         throw new Error('Supabase not configured. Please ensure your Supabase integration is connected.');
       }
 
+      console.log('Attempting to insert data into contact_submissions table');
       const { error } = await supabase
         .from('contact_submissions')
         .insert([data]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase insert error:', error);
+        throw error;
+      }
 
+      console.log('Form submitted successfully');
       toast({ title: "Thanks!", description: "We'll get back to you shortly." });
       (e.currentTarget as HTMLFormElement).reset();
     } catch (error) {
