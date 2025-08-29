@@ -32,30 +32,40 @@ const Contact = () => {
       }
 
       console.log('Attempting to insert data into contact_submissions table');
-      const { data: result, error } = await supabase
+      const response = await supabase
         .from('contact_submissions')
-        .insert([data])
-        .select();
+        .insert([data]);
 
-      console.log('Supabase response:', { result, error });
+      console.log('Full Supabase response:', response);
+      console.log('Response data:', response.data);
+      console.log('Response error:', response.error);
+      console.log('Response status:', response.status);
+      console.log('Response statusText:', response.statusText);
 
-      if (error) {
-        console.error('Supabase insert error:', error);
-        throw error;
+      if (response.error) {
+        console.error('Supabase insert error:', response.error);
+        throw new Error(`Database error: ${response.error.message}`);
       }
 
-      console.log('Form submitted successfully');
+      console.log('Form submitted successfully, showing success toast');
       toast({ title: "Thanks!", description: "We'll get back to you shortly." });
       (e.currentTarget as HTMLFormElement).reset();
+      console.log('Form reset completed');
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Caught error type:', typeof error);
+      console.error('Caught error:', error);
+      console.error('Error constructor:', error?.constructor?.name);
+      console.error('Error message:', error instanceof Error ? error.message : String(error));
+      console.error('Error stack:', error instanceof Error ? error.stack : 'No stack');
+      
       toast({ 
         title: "Error", 
-        description: `Failed to submit form: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        description: `Failed to submit form: ${error instanceof Error ? error.message : JSON.stringify(error)}`,
         variant: "destructive" 
       });
     } finally {
       setIsSubmitting(false);
+      console.log('Form submission completed, isSubmitting set to false');
     }
   };
 
