@@ -17,7 +17,8 @@ const Contact = () => {
     console.log('Form submission started');
     setIsSubmitting(true);
     
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     const data = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
@@ -49,7 +50,7 @@ const Contact = () => {
 
       console.log('Form submitted successfully, showing success toast');
       toast({ title: "Thanks!", description: "We'll get back to you shortly." });
-      (e.currentTarget as HTMLFormElement).reset();
+      form.reset();
       console.log('Form reset completed');
     } catch (error) {
       console.error('Caught error type:', typeof error);
