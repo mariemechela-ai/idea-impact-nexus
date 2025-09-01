@@ -64,6 +64,31 @@ const Careers = () => {
 
       if (error) throw error;
 
+      console.log('Career form submitted successfully, sending notification email');
+      
+      // Send notification email
+      try {
+        const notificationResponse = await supabase.functions.invoke('send-career-notification', {
+          body: {
+            name: submissionData.name,
+            email: submissionData.email,
+            expertise: submissionData.expertise,
+            message: submissionData.message,
+            cv_file_name: submissionData.cv_file_name,
+          }
+        });
+        
+        if (notificationResponse.error) {
+          console.error('Email notification error:', notificationResponse.error);
+          // Don't throw here - form submission was successful, email is secondary
+        } else {
+          console.log('Email notification sent successfully');
+        }
+      } catch (emailError) {
+        console.error('Failed to send email notification:', emailError);
+        // Don't throw here - form submission was successful
+      }
+
       toast({ title: "CV submitted", description: "Thanks for your interest! We'll be in touch." });
       (e.currentTarget as HTMLFormElement).reset();
       setConsent(false);

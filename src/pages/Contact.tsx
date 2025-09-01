@@ -48,7 +48,26 @@ const Contact = () => {
         throw new Error(`Database error: ${response.error.message}`);
       }
 
-      console.log('Form submitted successfully, showing success toast');
+      console.log('Form submitted successfully, sending notification email');
+      
+      // Send notification email
+      try {
+        const notificationResponse = await supabase.functions.invoke('send-contact-notification', {
+          body: data
+        });
+        
+        if (notificationResponse.error) {
+          console.error('Email notification error:', notificationResponse.error);
+          // Don't throw here - form submission was successful, email is secondary
+        } else {
+          console.log('Email notification sent successfully');
+        }
+      } catch (emailError) {
+        console.error('Failed to send email notification:', emailError);
+        // Don't throw here - form submission was successful
+      }
+
+      console.log('Showing success toast');
       toast({ title: "Thanks!", description: "We'll get back to you shortly." });
       form.reset();
       console.log('Form reset completed');
