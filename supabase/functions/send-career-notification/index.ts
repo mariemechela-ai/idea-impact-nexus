@@ -30,7 +30,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailResponse = await resend.emails.send({
       from: "Career Applications <onboarding@resend.dev>",
-      to: ["your-email@example.com"], // Replace with your actual email
+      to: ["marie.mechela@gmail.com"],
       subject: `New Career Application from ${name}`,
       html: `
         <h2>New Career Application Received</h2>
