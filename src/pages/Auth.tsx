@@ -85,7 +85,7 @@ const Auth = () => {
         .insert({
           user_id: data.user.id,
           display_name: displayName || email.split('@')[0],
-          role: 'admin', // First user becomes admin
+          role: 'user', // Default role for new users
         });
 
       if (profileError) {
