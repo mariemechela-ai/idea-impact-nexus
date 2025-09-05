@@ -24,7 +24,8 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email, message, file_name, file_path }: ContactNotificationRequest = await req.json();
+    const requestData = await req.json();
+    const { name, email, message, file_name = null, file_path = null }: ContactNotificationRequest = requestData;
 
     console.log("Sending contact form notification for:", { name, email, file_name });
 
