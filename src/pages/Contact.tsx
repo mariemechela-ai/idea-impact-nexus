@@ -76,10 +76,18 @@ const Contact = () => {
 
       console.log('Form submitted successfully, sending notification email');
       
-      // Send notification email
+      // Send notification email with only the required fields
+      const emailData = {
+        name: data.name,
+        email: data.email,
+        message: data.message,
+        file_name: data.file_name,
+        file_path: data.file_path
+      };
+      
       try {
         const notificationResponse = await supabase.functions.invoke('send-contact-notification', {
-          body: data
+          body: emailData
         });
         
         if (notificationResponse.error) {
