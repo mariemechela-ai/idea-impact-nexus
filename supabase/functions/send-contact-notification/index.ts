@@ -13,6 +13,8 @@ interface ContactNotificationRequest {
   name: string;
   email: string;
   message: string;
+  file_name?: string | null;
+  file_path?: string | null;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -22,9 +24,14 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email, message }: ContactNotificationRequest = await req.json();
+    const { name, email, message, file_name, file_path }: ContactNotificationRequest = await req.json();
 
-    console.log("Sending contact form notification for:", { name, email });
+    console.log("Sending contact form notification for:", { name, email, file_name });
+
+    const fileSection = file_name ? `
+      <p><strong>Attachment:</strong> ${file_name}</p>
+      <p><a href="https://bqjuevituetxtgqtqdbx.lovableproject.com/admin" target="_blank">View in Admin Dashboard</a></p>
+    ` : '';
 
     const emailResponse = await resend.emails.send({
       from: "Contact Form <onboarding@resend.dev>",
@@ -36,6 +43,7 @@ const handler = async (req: Request): Promise<Response> => {
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Message:</strong></p>
         <p>${message.replace(/\n/g, '<br>')}</p>
+        ${fileSection}
         <hr>
         <p><small>Submitted at: ${new Date().toLocaleString()}</small></p>
       `,
