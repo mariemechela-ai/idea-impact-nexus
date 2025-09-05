@@ -18,6 +18,8 @@ export interface ContactSubmission {
   name: string
   email: string
   message: string
+  file_name?: string | null
+  file_path?: string | null
   created_at?: string
 }
 

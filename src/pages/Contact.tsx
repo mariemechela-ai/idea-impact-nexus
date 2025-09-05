@@ -19,17 +19,43 @@ const Contact = () => {
     
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const data = {
+    
+    let data = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
       message: formData.get('message') as string,
+      file_name: null as string | null,
+      file_path: null as string | null,
     };
+    
     console.log('Form data:', data);
 
     try {
       console.log('Supabase client:', supabase);
       if (!supabase) {
         throw new Error('Supabase not configured. Please ensure your Supabase integration is connected.');
+      }
+
+      // Handle file upload if present
+      const fileInput = form.querySelector('input[name="documents"]') as HTMLInputElement;
+      if (fileInput?.files && fileInput.files.length > 0) {
+        const file = fileInput.files[0]; // Handle first file for now
+        const timestamp = Date.now();
+        const fileName = `${timestamp}-${file.name}`;
+        const filePath = `contact-documents/${fileName}`;
+        
+        console.log('Uploading file:', fileName);
+        const { error: uploadError } = await supabase.storage
+          .from('contact-documents')
+          .upload(filePath, file);
+        
+        if (uploadError) {
+          throw new Error(`File upload failed: ${uploadError.message}`);
+        }
+        
+        data.file_name = file.name;
+        data.file_path = filePath;
+        console.log('File uploaded successfully');
       }
 
       console.log('Attempting to insert data into contact_submissions table');

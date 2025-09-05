@@ -103,6 +103,28 @@ const Admin = () => {
     }
   };
 
+  const downloadDocument = async (filePath: string, fileName: string) => {
+    try {
+      const { data, error } = await supabase.storage
+        .from('contact-documents')
+        .download(filePath);
+
+      if (error) throw error;
+
+      // Create download link
+      const url = URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading document:', error);
+    }
+  };
+
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     navigate('/auth');
@@ -237,6 +259,25 @@ const Admin = () => {
                           {submission.message}
                         </p>
                       </div>
+                      {submission.file_name && (
+                        <div className="mt-4 space-y-2">
+                          <h4 className="font-medium">Attached Document:</h4>
+                          <div className="flex items-center justify-between p-3 bg-muted rounded-md">
+                            <p className="text-sm flex items-center gap-2">
+                              <FileText className="h-4 w-4" />
+                              {submission.file_name}
+                            </p>
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => downloadDocument(submission.file_path!, submission.file_name!)}
+                            >
+                              <Download className="h-4 w-4 mr-2" />
+                              Download
+                            </Button>
+                          </div>
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 ))
