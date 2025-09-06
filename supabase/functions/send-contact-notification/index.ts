@@ -31,7 +31,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     const fileSection = file_name ? `
       <p><strong>Attachment:</strong> ${file_name}</p>
-      <p><a href="https://a0b36f34-b2ca-4e15-bba1-9991ddd1c40c.sandbox.lovable.dev/admin" target="_blank">View in Admin Dashboard</a></p>
+      <p><a href="https://ideadvisory.com/admin" target="_blank">View in Admin Dashboard</a></p>
     ` : '';
 
     const emailResponse = await resend.emails.send({
