@@ -106,12 +106,45 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      admin_user_management: {
+        Row: {
+          auth_created_at: string | null
+          created_at: string | null
+          display_name: string | null
+          email: string | null
+          id: string | null
+          last_sign_in_at: string | null
+          role: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      create_initial_admin: {
+        Args: { admin_secret: string; target_user_id: string }
+        Returns: undefined
+      }
+      get_all_user_profiles: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at: string
+          display_name: string
+          email: string
+          id: string
+          last_sign_in_at: string
+          role: string
+          user_id: string
+        }[]
+      }
       is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
+      }
+      promote_user_to_admin: {
+        Args: { target_user_id: string }
+        Returns: undefined
       }
     }
     Enums: {
