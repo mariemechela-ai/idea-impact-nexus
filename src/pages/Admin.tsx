@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Download, Calendar, Mail, User, FileText, Briefcase, LogOut, AlertCircle } from "lucide-react";
+import { Download, Calendar, Mail, User, FileText, Briefcase, LogOut, AlertCircle, Shield } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { ContactSubmission, CareerSubmission } from "@/lib/supabase";
 import SEO from "@/components/SEO";
 import SiteHeader from "@/components/layout/SiteHeader";
 import SiteFooter from "@/components/layout/SiteFooter";
+import AdminSecurityDialog from "@/components/AdminSecurityDialog";
 
 const Admin = () => {
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([]);
@@ -19,6 +20,8 @@ const Admin = () => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminCheckLoading, setAdminCheckLoading] = useState(true);
   const navigate = useNavigate();
 
   const fetchSubmissions = async () => {
@@ -49,6 +52,20 @@ const Admin = () => {
     }
   };
 
+  // Check if user is admin
+  const checkAdminStatus = async () => {
+    try {
+      const { data, error } = await supabase.rpc('is_admin');
+      if (error) throw error;
+      setIsAdmin(data || false);
+    } catch (error) {
+      console.error('Error checking admin status:', error);
+      setIsAdmin(false);
+    } finally {
+      setAdminCheckLoading(false);
+    }
+  };
+
   useEffect(() => {
     // Check authentication
     const checkAuth = async () => {
@@ -61,17 +78,20 @@ const Admin = () => {
       
       setUser(session.user);
       setAuthLoading(false);
-      fetchSubmissions();
+      
+      // Check admin status
+      await checkAdminStatus();
     };
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         if (!session) {
           navigate('/auth');
         } else {
           setUser(session.user);
           setAuthLoading(false);
+          await checkAdminStatus();
         }
       }
     );
@@ -80,6 +100,13 @@ const Admin = () => {
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  // Fetch submissions only if user is admin
+  useEffect(() => {
+    if (isAdmin && !adminCheckLoading) {
+      fetchSubmissions();
+    }
+  }, [isAdmin, adminCheckLoading]);
 
   const downloadCV = async (filePath: string, fileName: string) => {
     try {
@@ -140,7 +167,7 @@ const Admin = () => {
     });
   };
 
-  if (authLoading) {
+  if (authLoading || adminCheckLoading) {
     return (
       <div className="min-h-screen flex flex-col">
         <SEO 
@@ -151,8 +178,52 @@ const Admin = () => {
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center space-y-4">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-            <p className="text-muted-foreground">Checking authentication...</p>
+            <p className="text-muted-foreground">
+              {authLoading ? 'Checking authentication...' : 'Verifying admin access...'}
+            </p>
           </div>
+        </main>
+        <SiteFooter />
+      </div>
+    );
+  }
+
+  // If user is not admin, show access denied
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <SEO 
+          title="Access Denied"
+          description="Admin access required"
+        />
+        <SiteHeader />
+        <main className="flex-1 flex items-center justify-center">
+          <Card className="max-w-md">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-destructive">
+                <Shield className="h-5 w-5" />
+                Access Denied
+              </CardTitle>
+              <CardDescription>
+                You need administrator privileges to access this page.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  This area is restricted to administrators only. If you should have access, please contact an existing administrator.
+                </AlertDescription>
+              </Alert>
+              
+              <div className="flex flex-col gap-2">
+                <AdminSecurityDialog onAdminCreated={checkAdminStatus} />
+                <Button variant="outline" onClick={() => navigate('/')} className="w-full">
+                  Return to Home
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </main>
         <SiteFooter />
       </div>
@@ -255,9 +326,9 @@ const Admin = () => {
                     <CardContent>
                       <div className="space-y-2">
                         <h4 className="font-medium">Message:</h4>
-                        <p className="text-sm bg-muted p-3 rounded-md whitespace-pre-wrap">
-                          {submission.message}
-                        </p>
+                         <p className="text-sm bg-muted p-3 rounded-md whitespace-pre-wrap">
+                           {submission.message.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                         </p>
                       </div>
                       {submission.file_name && (
                         <div className="mt-4 space-y-2">
@@ -330,9 +401,9 @@ const Admin = () => {
                       {submission.message && (
                         <div className="space-y-2">
                           <h4 className="font-medium">Message:</h4>
-                          <p className="text-sm bg-muted p-3 rounded-md whitespace-pre-wrap">
-                            {submission.message}
-                          </p>
+                           <p className="text-sm bg-muted p-3 rounded-md whitespace-pre-wrap">
+                             {submission.message?.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                           </p>
                         </div>
                       )}
                       {submission.cv_file_name && (

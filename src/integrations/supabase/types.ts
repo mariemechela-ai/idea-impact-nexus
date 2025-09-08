@@ -106,35 +106,22 @@ export type Database = {
       }
     }
     Views: {
-      admin_user_management: {
-        Row: {
-          auth_created_at: string | null
-          created_at: string | null
-          display_name: string | null
-          email: string | null
-          id: string | null
-          last_sign_in_at: string | null
-          role: string | null
-          updated_at: string | null
-          user_id: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       create_initial_admin: {
         Args: { admin_secret: string; target_user_id: string }
         Returns: undefined
       }
-      get_all_user_profiles: {
+      get_user_profiles_for_admin: {
         Args: Record<PropertyKey, never>
         Returns: {
           created_at: string
           display_name: string
           email: string
-          id: string
-          last_sign_in_at: string
+          profile_id: string
           role: string
+          updated_at: string
           user_id: string
         }[]
       }
