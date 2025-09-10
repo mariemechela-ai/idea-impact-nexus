@@ -24,7 +24,7 @@ const Insights = () => {
           <li>Practical tools and resources</li>
         </ul>
         <div className="mt-8 flex gap-3">
-          <Button asChild variant="hero"><a href="#">Follow us on LinkedIn</a></Button>
+          <Button asChild variant="hero"><a href="https://www.linkedin.com/company/ideadvisory" target="_blank" rel="noopener noreferrer">Follow us on LinkedIn</a></Button>
           <Button asChild variant="secondary"><Link to="/contact">Contact Us to Collaborate</Link></Button>
         </div>
       </main>
