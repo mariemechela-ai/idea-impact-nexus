@@ -23,7 +23,7 @@ const SiteFooter = () => {
           <div className="font-medium mb-2">Connect</div>
           <ul className="space-y-2 text-muted-foreground">
             <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
-            <li><a href="#" className="hover:text-foreground">LinkedIn</a></li>
+            <li><a href="https://www.linkedin.com/company/ideadvisory" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">LinkedIn</a></li>
           </ul>
         </div>
       </div>
