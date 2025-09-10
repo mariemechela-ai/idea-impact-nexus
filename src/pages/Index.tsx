@@ -2,11 +2,18 @@ import SEO from "@/components/SEO";
 import SiteHeader from "@/components/layout/SiteHeader";
 import SiteFooter from "@/components/layout/SiteFooter";
 import HeroBackground from "@/components/HeroBackground";
+import ImpactStatistics from "@/components/ImpactStatistics";
+import ProjectShowcase from "@/components/ProjectShowcase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Gauge, Link as LinkIcon, MapPin, Handshake } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Link } from "react-router-dom";
+import heroImage from "@/assets/hero-development.jpg";
+import strategicImage from "@/assets/strategic-advisory.jpg";
+import healthcareImage from "@/assets/healthcare-humanitarian.jpg";
+import economicImage from "@/assets/economic-development.jpg";
+import innovationImage from "@/assets/innovation-ai.jpg";
 
 const Index = () => {
   return (
@@ -26,6 +33,10 @@ const Index = () => {
       <main>
         {/* Hero */}
         <section className="relative overflow-hidden min-h-screen flex items-center">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+            style={{ backgroundImage: `url(${heroImage})` }}
+          />
           <div className="container mx-auto pt-20 pb-28 text-center relative z-10">
             <HeroBackground />
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
@@ -63,28 +74,34 @@ const Index = () => {
               {[
                 {
                   title: "Strategic & Program Advisory",
-                  icon: "🎯",
+                  image: strategicImage,
                   desc: "Strategic guidance for maximum impact"
                 },
                 {
                   title: "Humanitarian, Health & Gender Programming",
-                  icon: "❤️",
+                  image: healthcareImage,
                   desc: "Human-centered solutions in complex environments"
                 },
                 {
                   title: "Economic Development & Trade",
-                  icon: "📈",
+                  image: economicImage,
                   desc: "Sustainable economic growth and partnerships"
                 },
                 {
                   title: "Innovation, AI & Digital Tools",
-                  icon: "🚀",
+                  image: innovationImage,
                   desc: "Technology for inclusive development"
                 },
               ].map((s) => (
-                <Card key={s.title} className="card-premium h-full group cursor-pointer">
+                <Card key={s.title} className="card-premium h-full group cursor-pointer overflow-hidden">
                   <CardHeader className="text-center pb-4">
-                    <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">{s.icon}</div>
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden shadow-glow group-hover:scale-110 transition-transform">
+                      <img 
+                        src={s.image} 
+                        alt={s.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <CardTitle className="text-lg leading-tight">{s.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
@@ -156,7 +173,11 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Impact Statistics */}
+        <ImpactStatistics />
 
+        {/* Project Showcase */}
+        <ProjectShowcase />
 
         {/* Final CTA */}
         <section className="py-20 border-t">
