@@ -2,8 +2,6 @@ import SEO from "@/components/SEO";
 import SiteHeader from "@/components/layout/SiteHeader";
 import SiteFooter from "@/components/layout/SiteFooter";
 import HeroBackground from "@/components/HeroBackground";
-import ImpactStatistics from "@/components/ImpactStatistics";
-import ProjectShowcase from "@/components/ProjectShowcase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Gauge, Link as LinkIcon, MapPin, Handshake } from "lucide-react";
@@ -173,11 +171,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Impact Statistics */}
-        <ImpactStatistics />
-
-        {/* Project Showcase */}
-        <ProjectShowcase />
 
         {/* Final CTA */}
         <section className="py-20 border-t">
