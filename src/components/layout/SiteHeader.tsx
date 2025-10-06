@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const navItems = [
   { to: "/about", label: "About" },
@@ -15,8 +16,8 @@ const SiteHeader = () => {
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
       <div className="container mx-auto flex items-center justify-between h-16">
-        <Link to="/" className="font-semibold text-lg tracking-tight">
-          IDEA
+        <Link to="/" className="flex items-center">
+          <img src={logo} alt="IDEA Logo" className="h-10 w-auto" />
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
