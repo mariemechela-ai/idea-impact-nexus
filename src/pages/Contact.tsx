@@ -7,6 +7,22 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(1, "Name is required")
+    .max(100, "Name must be less than 100 characters"),
+  email: z.string()
+    .trim()
+    .email("Invalid email address")
+    .max(255, "Email must be less than 255 characters"),
+  message: z.string()
+    .trim()
+    .min(1, "Message is required")
+    .max(10000, "Message must be less than 10,000 characters"),
+});
 
 const Contact = () => {
   const { toast } = useToast();
@@ -20,15 +36,40 @@ const Contact = () => {
     const form = e.currentTarget;
     const formData = new FormData(form);
     
-    let data = {
+    const rawData = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
       message: formData.get('message') as string,
-      file_name: null as string | null,
-      file_path: null as string | null,
     };
     
-    console.log('Form data:', data);
+    // Validate form data
+    const validation = contactSchema.safeParse(rawData);
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
+      toast({
+        title: "Validation Error",
+        description: firstError.message,
+        variant: "destructive"
+      });
+      setIsSubmitting(false);
+      return;
+    }
+    
+    let data: {
+      name: string;
+      email: string;
+      message: string;
+      file_name: string | null;
+      file_path: string | null;
+    } = {
+      name: validation.data.name,
+      email: validation.data.email,
+      message: validation.data.message,
+      file_name: null,
+      file_path: null,
+    };
+    
+    console.log('Validated form data:', data);
 
     try {
       console.log('Supabase client:', supabase);

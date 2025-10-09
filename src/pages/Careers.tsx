@@ -8,6 +8,27 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const careerSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(1, "Name is required")
+    .max(100, "Name must be less than 100 characters"),
+  email: z.string()
+    .trim()
+    .email("Invalid email address")
+    .max(255, "Email must be less than 255 characters"),
+  expertise: z.string()
+    .trim()
+    .min(1, "Expertise is required")
+    .max(200, "Expertise must be less than 200 characters"),
+  message: z.string()
+    .trim()
+    .max(10000, "Message must be less than 10,000 characters")
+    .optional()
+    .or(z.literal("")),
+});
 
 const Careers = () => {
   const { toast } = useToast();
@@ -23,6 +44,26 @@ const Careers = () => {
     
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
+    
+    const rawData = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      expertise: formData.get('expertise') as string,
+      message: formData.get('message') as string || "",
+    };
+    
+    // Validate form data
+    const validation = careerSchema.safeParse(rawData);
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
+      toast({
+        title: "Validation Error",
+        description: firstError.message,
+        variant: "destructive"
+      });
+      setIsSubmitting(false);
+      return;
+    }
     
     let cvFileName = null;
     let cvFilePath = null;
@@ -48,12 +89,19 @@ const Careers = () => {
         cvFilePath = fileName;
       }
 
-      // Save form data
-      const submissionData = {
-        name: formData.get('name') as string,
-        email: formData.get('email') as string,
-        expertise: formData.get('expertise') as string,
-        message: formData.get('message') as string,
+      // Save form data with validated inputs
+      const submissionData: {
+        name: string;
+        email: string;
+        expertise: string;
+        message: string | undefined;
+        cv_file_name: string | null;
+        cv_file_path: string | null;
+      } = {
+        name: validation.data.name,
+        email: validation.data.email,
+        expertise: validation.data.expertise,
+        message: validation.data.message,
         cv_file_name: cvFileName,
         cv_file_path: cvFilePath,
       };
